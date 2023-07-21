@@ -89,6 +89,7 @@ export const attachIO = (server) => {
     });
 
     socket.on(SOCKET_EVENT.USER.LEAVE, async () => {
+      socket.leave(socket.roomId);
       await roomService.removeUserFromRoom(socket.userId, socket.roomId);
       socket.to(socket.roomId).emit(SOCKET_EVENT.USER.LEAVE, {
         userId: socket.userId,
